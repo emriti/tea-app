@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: bar
+spec:
+  selector:
+    matchLabels:
+      app: bar
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: bar
+    spec:
+      containers:
+        - name: bar
+          image: emriti/tea-app:1.0.0
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+
+      
