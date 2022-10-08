@@ -175,7 +175,7 @@ I also did these:
 - add `127.0.0.1 foobar.com` to /etc/hosts
 - running `minikube tunnel`
 
-After that I run `curl foobar.com/tea` and I get this error: 
+After that I run `curl foobar.com/foo/tea` and I get this error: 
 ```console
 curl : Cannot GET /
 At line:1 char:1
