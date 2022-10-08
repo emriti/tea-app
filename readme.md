@@ -1,10 +1,9 @@
-# Background
 Hi All,
 
 I'm trying to learn about multipath in Kubernetes Ingress. First of all, I'm using minikube for this tutorial, I created a simple Web API using node js.
 
 ## NodeJS Code
-In this nodeJS I created a simple Web API, with routing and controller
+In this nodeJS, I created a simple Web API, with routing and controller
 
 ### server.js
 ```javascript
@@ -21,8 +20,24 @@ const listener = app.listen(process.env.PORT || 3000, () => {
     console.log('Your app is listening on port ' + listener.address().port)
 })
 ```
+### routes/tea.js
+```javascript
+const express = require('express');
+const router  = express.Router();
+const teaController = require('../controllers/tea');
 
-### controller/tea.js
+router.get('/tea', teaController.getAllTea);
+router.post('/tea', teaController.newTea);
+router.delete('/tea', teaController.deleteAllTea);
+
+router.get('/tea/:name', teaController.getOneTea);
+router.post('/tea/:name', teaController.newComment);
+router.delete('/tea/:name', teaController.deleteOneTea);
+
+module.exports = router;
+```
+
+### controllers/tea.js
 ```javascript
 const os = require('os');
 
@@ -67,22 +82,6 @@ module.exports = {
 };
 ```
 
-### routes/tea.js
-```javascript
-const express = require('express');
-const router  = express.Router();
-const teaController = require('../controllers/tea');
-
-router.get('/tea', teaController.getAllTea);
-router.post('/tea', teaController.newTea);
-router.delete('/tea', teaController.deleteAllTea);
-
-router.get('/tea/:name', teaController.getOneTea);
-router.post('/tea/:name', teaController.newComment);
-router.delete('/tea/:name', teaController.deleteOneTea);
-
-module.exports = router;
-```
 
 ### Dockerfile
 After that I created a docker image using this Dockerfile
@@ -97,7 +96,7 @@ CMD [ "node", "server.js" ]
 ```
 
 ## Kubernetes Manifest
-And then, I created replicateset and service for this docker image
+And then, I created replicaset and service for this docker image
 
 ### foo-replicaset.yaml
 ```yaml
@@ -176,7 +175,7 @@ I also did these:
 - add `127.0.0.1 foobar.com` to /etc/hosts
 - running `minikube tunnel`
 
-After that i run `curl foobar.com/tea` and i get this error: 
+After that I run `curl foobar.com/tea` and I get this error: 
 ```console
 curl : Cannot GET /
 At line:1 char:1
@@ -186,6 +185,8 @@ At line:1 char:1
     + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
 ```
 
-I'm wondering that maybe someone have experienced the similar problem that i did and maybe already had the answer for that and secondly how to debug the ingress if I meet the similar issues.
+I'm wondering if maybe someone has experienced a similar problem that I did and maybe already had the answer for that. Secondly how to debug the ingress if I meet similar issues?
+
+The codes and manifest could be accessed on this [repo](https://github.com/emriti/tea-app)
 
 Thank you!
