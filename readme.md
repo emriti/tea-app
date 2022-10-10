@@ -7,6 +7,12 @@ Sample Web API application that built using NodeJs. Containerized using Docker d
   - `docker build -t <your docker hub account>/tea-app:1.2.0 .`
   - `docker push <your docker hub account>/tea-app:1.2.0`
 - `cd .\tea-app\manifest`
+- Update your images in both replicasets
+  - For example: 
+  ```kubernetes
+        - name: bar
+          image: <your docker hub account>/tea-app:1.2.0
+  ```
 - Create Replicasets
   - `kubectl create -f .\foo-replicaset.yaml`
   - `kubectl create -f .\bar-replicaset.yaml`
