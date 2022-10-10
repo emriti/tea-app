@@ -9,18 +9,19 @@ spec:
     - host: foobar.com
       http:
         paths:
-          - path: /foo
+          - path: /foo/(.*)
             pathType: Prefix
             backend:
               service:
                 name: foo-nodeport
                 port:
                   number: 3000  
-          - path: /bar
+          - path: /bar/(.*)
             pathType: Prefix
             backend:
               service:
-                name: bar-nodeport
+                name: foo-nodeport
                 port:
                   number: 3000  
+
             

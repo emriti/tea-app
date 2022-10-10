@@ -7,6 +7,6 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
-      nodePort: 31235
+      nodePort: 32235
   selector:
     app: bar
